@@ -15,7 +15,7 @@ class CartController extends Controller
     public function index()
     {
         //
-        return Cart::join('clients', 'clients.id', '=', 'carts.client_id')->get();
+         return Cart::select('*','carts.id as id')->join('clients', 'clients.id', '=', 'carts.client_id')->get();
     }
 
     /**
