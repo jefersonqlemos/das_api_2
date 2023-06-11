@@ -86,13 +86,14 @@ class CartController extends Controller
     public function update(Request $request, string $id)
     {
         //
+
         $total_value = 0;
 
         try {
 
             CartProduct::where('cart_id', $id)->delete();
 
-            foreach($request->products as $product){
+            foreach($request->json()->all() as $product){
                 $cart_product = new CartProduct;
                 $cart_product->product_id = $product['id'];
                 $cart_product->cart_id = $id;
@@ -105,7 +106,6 @@ class CartController extends Controller
 
             $cart = Cart::find($id);
             $cart->total_value = $total_value;
-            $cart->client_id = $request->client_id;
             $cart->save();
 
             return 'succcess';
